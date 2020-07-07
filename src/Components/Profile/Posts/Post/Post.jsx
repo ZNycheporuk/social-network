@@ -9,9 +9,9 @@ const Post = (props) => {
         src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS5PPgPJEaXKUY00u6ebU25vHptkoXeQ02UcQ&usqp=CAU'/>
       {props.message}
       <div>
-        like
+        {`likes ${props.likesCount}`}
       </div>
     </div>
   );
-}
+};
 export default Post;

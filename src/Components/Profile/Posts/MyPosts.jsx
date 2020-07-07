@@ -3,6 +3,11 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 
 const MyPosts = () => {
+  let posts = [
+    {id: 1, message: 'Hi! I\'m here', likesCount: 19},
+    {id: 2, message: 'How are you?', likesCount: 7},
+  ];
+  let postElements = posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
   return (
     <div className={s.posts}>
       My posts
@@ -11,9 +16,8 @@ const MyPosts = () => {
         <br/>
         <button>New Post</button>
       </div>
-      <Post message="Hi! I'm here"/>
-      <Post message="How are you?"/>
+      {postElements}
     </div>
   );
-}
+};
 export default MyPosts;
