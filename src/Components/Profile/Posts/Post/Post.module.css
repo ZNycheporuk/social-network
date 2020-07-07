@@ -1,0 +1,9 @@
+.post img {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.post {
+    margin: 5px 5px 5px 5px;
+    background-color: whitesmoke;
+}
