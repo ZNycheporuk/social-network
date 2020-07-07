@@ -3,17 +3,30 @@
     grid-template-areas: "header header" "nav content";
     grid-template-rows: 60px 1fr;
     grid-template-columns: 1fr 8fr;
-    grid-gap: 10px;
-    width: 90%;
-    margin: auto;
+    grid-gap: 20px;
+    width: 100%;
 }
 
 .app-wrapper-content {
     grid-area: content;
-    background-color: bisque;
+    margin-right: 20px;
+    /*border: 2px solid #b3c2bf;*/
 }
 
+.app-wrapper-navnar {
+    grid-area: nav;
+}
 
+html {
+    background-color: #e9ece5;
+}
+
+/* colors:
+    #c0dfd9
+    #e9ece5
+    #b3c2bf
+    #3b3a36
+*/
 
 
 
