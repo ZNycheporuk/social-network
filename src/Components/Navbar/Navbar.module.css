@@ -1,20 +1,20 @@
 .nav {
     font-size: 18px;
     line-height: 1.5;
-    border-bottom: 2px solid #b3c2bf;
-    border-right: 2px solid #b3c2bf;
-    border-top: 2px solid #b3c2bf;
+    border-bottom: 2px solid #3b3a36;
+    border-right: 2px solid #3b3a36;
+    border-top: 2px solid #3b3a36;
     padding: 20px;
 }
 
 .item a {
     font-size: 18px;
     line-height: 1.5;
-    color: #b3c2bf;
+    color: #3b3a36;
     text-decoration: none;
     font-weight: bold;
 }
 
 .item a.active {
-    color: #ffffff;;
+    color: #b3c2bf;;
 }

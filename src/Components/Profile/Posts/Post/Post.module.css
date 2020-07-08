@@ -6,4 +6,15 @@
 .post {
     margin: 5px 5px 5px 5px;
     background-color: #ffffff;
+    color: #3b3a36;
+}
+
+.poster {
+    font-weight: bold;
+}
+
+.likes {
+    padding-top: 5px;
+    color: #3b3a36;
+    font-style: italic;
 }

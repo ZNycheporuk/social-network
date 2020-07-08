@@ -5,12 +5,12 @@
 .dialog a {
     font-size: 18px;
     line-height: 1.5;
-    color: #b3c2bf;
+    color: #3b3a36;
     font-weight: bolder;
     text-decoration: none;
 
 }
 
 .dialog .active {
-    color: #ffffff;
+    color: #b3c2bf;
 }

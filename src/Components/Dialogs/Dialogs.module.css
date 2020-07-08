@@ -5,6 +5,7 @@
 
 .dialogItems {
     padding: 10px;
+    border-right: #3b3a36 2px solid;
 }
 
 .messages {
