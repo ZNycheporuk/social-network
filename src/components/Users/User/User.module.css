@@ -1,0 +1,13 @@
+.ava {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.userDiv {
+    border: #3b3a36 2px solid;
+    margin-bottom: 20px;
+    padding: 20px;
+    width: 1000px;
+}

@@ -1,0 +1,35 @@
+.header {
+    grid-area: header;
+    z-index: 32;
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #b3c2bf;
+    /*background-color: #b3c2bf;*/
+    /*border-style: solid;*/
+    /*border-bottom: 2px solid #3b3a36;*/
+    background-color: #3b3a36;
+    position: fixed;
+    width: 100%;
+}
+
+.login {
+    float: right;
+    margin-right: 50px;
+}
+
+.login a {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #e9ece5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login a:hover {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #b3c2bf;
+    text-decoration: none;
+    font-weight: bold;
+}

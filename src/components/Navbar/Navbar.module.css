@@ -1,0 +1,21 @@
+.nav {
+    margin-top: 80px;
+    font-size: 18px;
+    line-height: 1.5;
+    border: 2px solid #3b3a36;
+    padding: 40px;
+    margin-left: 20px;
+    position: fixed;
+}
+
+.item a {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #3b3a36;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.item a.active {
+    color: #b3c2bf;;
+}
