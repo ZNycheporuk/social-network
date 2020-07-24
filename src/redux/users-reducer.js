@@ -1,3 +1,5 @@
+import {followAPI, usersAPI} from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -6,14 +8,35 @@ const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_IN_PROGRESS = 'TOGGLE_IS_FOLLOWING_IN_PROGRESS';
 
-export const follow = (id) => ({type: FOLLOW, id});
-export const unfollow = (id) => ({type: UNFOLLOW, id});
-export const setUsers = (users) => ({type: SET_USERS, users});
-export const setPage = (page) => ({type: SET_PAGE, page});
-export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
-export const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
-export const followingInProgress = (isFetching, id) => ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, id});
+const setUsers = (users) => ({type: SET_USERS, users});
+const setFollow = (id) => ({type: FOLLOW, id});
+const setUnfollow = (id) => ({type: UNFOLLOW, id});
+const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
+const setPage = (page) => ({type: SET_PAGE, page});
+const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
+const followingInProgress = (isFetching, id) => ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, id});
 
+export const getUsers = (page, pageSize, pagesCount) => async (dispatch) => {
+  dispatch(setPage(page));
+  dispatch(setIsFetching(true));
+  const data = await usersAPI.getUsers(page, pageSize, pagesCount);
+  dispatch(setIsFetching(false));
+  dispatch(setUsers(data.items));
+  dispatch(setTotalUsersCount(data.totalCount));
+}
+export const unfollow = (id) => async (dispatch) => {
+  dispatch(followingInProgress(true, id));
+  const resultCode = await followAPI.unfollow(id);
+  if (resultCode === 0) dispatch(setUnfollow(id));
+  dispatch(followingInProgress(false, id));
+
+}
+export const follow = (id) => async (dispatch) => {
+  dispatch(followingInProgress(true, id));
+  const resultCode = await followAPI.follow(id)
+  if (resultCode === 0) dispatch(setFollow(id))
+  dispatch(followingInProgress(false, id));
+}
 
 let initialState = {
   users: [],

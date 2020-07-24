@@ -8,30 +8,30 @@ const api = axios.create({
   }
 })
 export const usersAPI = {
-  getUsers(page = 1, pageSize = 10, pagesCount = 549) {
-    return api.get(`users?page=${pagesCount - page + 1}&count=${pageSize}`)
-      .then(response => response.data);
+  async getUsers(page = 1, pageSize = 10, pagesCount = 550) {
+    const response = await api.get(`users?page=${pagesCount - page + 1}&count=${pageSize}`);
+    return response.data;
   }
 }
 export const followAPI = {
-  follow(id) {
-    return api.post(`follow/${id}`)
-      .then(response => response.data.resultCode);
+  async follow(id) {
+    const response = await api.post(`follow/${id}`);
+    return response.data.resultCode;
   },
-  unfollow(id) {
-    return api.delete(`follow/${id}`)
-      .then(response => response.data.resultCode);
+  async unfollow(id) {
+    const response = await api.delete(`follow/${id}`);
+    return response.data.resultCode;
   }
 }
 export const authAPI = {
-  auth() {
-    return api.get(`auth/me`)
-      .then(response => response.data);
+  async auth() {
+    const response = await api.get(`auth/me`);
+    return response.data;
   }
 }
 export const profileAPI = {
-  getProfile(id) {
-    return api.get(`profile/${id}`)
-      .then(response => response.data);
+  async getProfile(id) {
+    const response = await api.get(`profile/${id}`);
+    return response.data;
   }
 }

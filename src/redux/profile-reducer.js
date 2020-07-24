@@ -1,10 +1,20 @@
+import {profileAPI} from "../api/api";
+
 const ADD_POST = 'ADD_POST';
 const UPDATE_POST_TEXT = 'UPDATE_POST_TEXT';
 const SET_PROFILE = 'SET_PROFILE';
 
+const setProfile = (profile) => ({type: SET_PROFILE, profile,});
+
 export const addPost = () => ({type: ADD_POST});
 export const updatePostText = (newText) => ({type: UPDATE_POST_TEXT, newText,});
-export const setProfile = (profile) => ({type: SET_PROFILE, profile,});
+
+export const getProfile = (id) => async (dispatch) => {
+  // dispatch(setIsFetching(true));
+  const data = await profileAPI.getProfile(id)
+  // dispatch(setIsFetching(false));
+  dispatch(setProfile(data));
+}
 
 let initialState = {
   posts: [

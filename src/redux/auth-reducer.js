@@ -1,8 +1,17 @@
+import {authAPI} from "../api/api";
+
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
-export const setAuthUserData = (id, email, login) => ({type: SET_AUTH_USER_DATA, data: {id, email, login}});
-export const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
+const setAuthUserData = (id, email, login) => ({type: SET_AUTH_USER_DATA, data: {id, email, login}});
+// export const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
+export const authenticate = () => async (dispatch) => {
+  const response = await authAPI.auth()
+  if (response.resultCode === 0) {
+    let {id, email, login} = {...response.data};
+    dispatch(setAuthUserData(id, email, login));
+  }
+}
 let initialState = {
   id: null,
   email: null,
