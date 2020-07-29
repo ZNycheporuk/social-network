@@ -1,4 +1,4 @@
-import {followAPI, usersAPI} from "../api/api";
+import {followAPI, usersAPI} from '../api/api';
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -23,20 +23,20 @@ export const getUsers = (page, pageSize, pagesCount) => async (dispatch) => {
   dispatch(setIsFetching(false));
   dispatch(setUsers(data.items));
   dispatch(setTotalUsersCount(data.totalCount));
-}
+};
 export const unfollow = (id) => async (dispatch) => {
   dispatch(followingInProgress(true, id));
   const resultCode = await followAPI.unfollow(id);
   if (resultCode === 0) dispatch(setUnfollow(id));
   dispatch(followingInProgress(false, id));
 
-}
+};
 export const follow = (id) => async (dispatch) => {
   dispatch(followingInProgress(true, id));
-  const resultCode = await followAPI.follow(id)
-  if (resultCode === 0) dispatch(setFollow(id))
+  const resultCode = await followAPI.follow(id);
+  if (resultCode === 0) dispatch(setFollow(id));
   dispatch(followingInProgress(false, id));
-}
+};
 
 let initialState = {
   users: [],
@@ -54,7 +54,7 @@ const usersReducer = (state = initialState, action) => {
         ...state, users: state.users.map(user => {
           if (user.id === action.id) return {...user, followed: true};
           return user;
-        })
+        }),
       };
     }
     case UNFOLLOW: {
@@ -62,7 +62,7 @@ const usersReducer = (state = initialState, action) => {
         ...state, users: state.users.map(user => {
           if (user.id === action.id) return {...user, followed: false};
           return user;
-        })
+        }),
       };
     }
     case SET_USERS: {
@@ -82,11 +82,11 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state, isFollowingInProgress: action.isFetching
           ? [...state.isFollowingInProgress, action.id]
-          : state.isFollowingInProgress.filter(id => id !== action.id)
+          : state.isFollowingInProgress.filter(id => id !== action.id),
       };
     }
     default:
       return state;
   }
-}
+};
 export default usersReducer;

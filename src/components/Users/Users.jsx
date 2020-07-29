@@ -1,10 +1,10 @@
 import React from 'react';
-import User from "./User/User";
-import s from './Users.module.css'
-import Preloader from "../Common/Preloader/Preloader";
+import Preloader from '../Common/Preloader/Preloader';
+import User from './User/User';
+import s from './Users.module.css';
 
 const Users = (props) => {
-  let pages = [];
+  const pages = [];
   for (let i = 1; i <= props.pagesCount && i <= 10; i++) {
     pages.push(i);
   }

@@ -1,12 +1,10 @@
 import React from 'react';
-import Preloader from "../../Common/Preloader/Preloader";
-import s from './ProfileInfo.module.css';
-import userPhoto from "../../../assets/Images/user8.jpg";
+import userPhoto from '../../../assets/Images/user8.jpg';
+import Status from '../Status/Status';
+import s from './Info.module.css';
 
 const ProfileInfo = (props) => {
-  if (!props.profile) {
-    return <Preloader/>
-  }
+
   return (
 
     <div>
@@ -38,6 +36,7 @@ const ProfileInfo = (props) => {
           <div className={s.about}>Looking for a job: {props.profile.lookingForAJob ? 'yes' &&
             <div className={s.about}>Description: {`${props.profile.lookingForAJobDescription}`}</div> : 'no'}
           </div>
+          <Status status={props.status} setStatus={props.setStatus}/>
         </div>
       </div>
     </div>

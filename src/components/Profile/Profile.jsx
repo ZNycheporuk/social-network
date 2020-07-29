@@ -1,14 +1,18 @@
 import React from 'react';
+import Preloader from '../Common/Preloader/Preloader';
+import Info from './Info/Info';
+import MyPosts from './Posts/MyPosts';
 import s from './Profile.module.css';
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./Posts/MyPostsContainer";
 
 
 const Profile = (props) => {
+  if (!props.profile) {
+    return <Preloader/>;
+  }
   return (
     <div className={s.profile}>
-      <ProfileInfo profile={props.profile}/>
-      <MyPostsContainer store={props.store}/>
+      <Info profile={props.profile} status={props.status} setStatus={props.setStatus}/>
+      <MyPosts addPost={props.addPost} posts={props.posts}/>
     </div>
   );
 };

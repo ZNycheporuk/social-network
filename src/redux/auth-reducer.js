@@ -1,18 +1,31 @@
-import {authAPI} from "../api/api";
+import {authAPI} from '../api/api';
 
 const SET_AUTH_USER_DATA = 'SET_AUTH_USER_DATA';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
-const setAuthUserData = (id, email, login) => ({type: SET_AUTH_USER_DATA, data: {id, email, login}});
+const setAuthUserData = (id, email, login, isAuth) => ({
+  type: SET_AUTH_USER_DATA,
+  data: {id, email, login, isAuth},
+});
 // export const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 export const authenticate = () => async (dispatch) => {
-  const response = await authAPI.auth()
+  const response = await authAPI.auth();
   if (response.resultCode === 0) {
-    let {id, email, login} = {...response.data};
-    dispatch(setAuthUserData(id, email, login));
+    const {id, email, login} = {...response.data};
+    dispatch(setAuthUserData(id, email, login, true));
   }
-}
-let initialState = {
+};
+export const login = (data) => async (dispatch) => {
+  const response = await authAPI.login(data);
+  if (response.resultCode === 0)
+    dispatch(authenticate());
+};
+export const logout = () => async (dispatch) => {
+  const response = await authAPI.logout();
+  if (response.resultCode === 0)
+    dispatch(setAuthUserData(null, null, null, false));
+};
+const initialState = {
   id: null,
   email: null,
   login: null,
@@ -26,7 +39,6 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.data,
-        isAuth: true,
       };
     }
     case TOGGLE_IS_FETCHING: {
@@ -35,5 +47,5 @@ const authReducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 export default authReducer;

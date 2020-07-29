@@ -5,7 +5,7 @@
     border: 2px solid #3b3a36;
     padding: 40px;
     margin-left: 20px;
-    position: fixed;
+    position: relative;
 }
 
 .item a {

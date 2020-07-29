@@ -1,5 +1,5 @@
-import profileReducer from "./profile-reducer";
-import dialogReducer from "./dialog-reducer";
+import dialogReducer from './dialog-reducer';
+import profileReducer from './profile-reducer';
 
 let store = {
   _state: {
@@ -10,17 +10,17 @@ let store = {
           poster: 'Nycheporuk',
           posterAva: 'https://avatarfiles.alphacoders.com/715/71560.jpg',
           message: 'Hi! I\'m here',
-          likesCount: 19
+          likesCount: 19,
         },
         {
           id: 2,
           poster: 'Leylin',
           posterAva: 'https://avatarfiles.alphacoders.com/121/121911.jpg',
           message: 'How are you?',
-          likesCount: 7
+          likesCount: 7,
         },
       ],
-      newPostText: ''
+      newPostText: '',
     },
     dialogsPage: {
       dialogs: [
@@ -55,7 +55,7 @@ let store = {
     this._state.profilePage = profileReducer(this._state.profilePage, action);
     this._state.dialogsPage = dialogReducer(this._state.dialogsPage, action);
     this._callSubscriber();
-  }
+  },
 };
 
 export default store;

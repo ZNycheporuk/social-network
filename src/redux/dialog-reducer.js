@@ -1,10 +1,9 @@
 const SEND_MESSAGE = 'SEND_MESSAGE';
-const UPDATE_MESSSAGE_TEXT = 'UPDATE_MESSAGE_TEXT';
 
-export const sendMessageCreator = () => ({type: SEND_MESSAGE});
-export const updateMessageTextCreator = (newText) => ({type: UPDATE_MESSSAGE_TEXT, newText,});
+export const sendMessage = (message) => ({type: SEND_MESSAGE, message});
 
-let initialState = {
+
+const initialState = {
   dialogs: [
     {id: 1, name: 'Ustinya'},
     {id: 2, name: 'Dendy'},
@@ -20,31 +19,24 @@ let initialState = {
     {id: 3, message: 'I\'m React developer'},
     {id: 4, message: 'I\'m Angular developer'},
   ],
-  newMessageText: '',
 };
 
 const dialogReducer = (state = initialState, action) => {
   switch (action.type) {
     case SEND_MESSAGE: {
-      if (state.newMessageText === '') return state;
-      let message = {
-        id: state.messages.length,
-        message: state.newMessageText,
-      };
-      let stateCopy = {...state};
-      stateCopy.messages = [...state.messages];
-      stateCopy.newMessageText = '';
-      stateCopy.messages.push(message);
-      return stateCopy;
-    }
-    case UPDATE_MESSSAGE_TEXT: {
       return {
         ...state,
-        newMessageText: action.newText
-      }
+        messages: [
+          ...state.messages,
+          {
+            id: state.messages.length,
+            message: action.message,
+          },
+        ],
+      };
     }
     default:
       return state;
   }
-}
+};
 export default dialogReducer;
