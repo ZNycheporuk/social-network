@@ -1,22 +1,13 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
-import {Field, reduxForm} from 'redux-form';
+import {compose} from 'redux';
+import withAuthRedirect from '../../hoc/withAuthRedirect';
+import {sendMessage} from '../../redux/dialog-reducer';
+import {getDialogs, getMessages} from '../../redux/dialog-selectors';
 import s from './Dialogs.module.css';
+import NewMessageForm from './NewMessageForm';
 
-const NewMessageForm = (props) => {
-  return (
-    <form className={s.newMessage} onSubmit={props.handleSubmit}>
-      <div>
-        <Field component={'textarea'} name={'message'} placeholder='Enter your message:'/>
-      </div>
-      <div>
-        <button>Send</button>
-      </div>
-    </form>
-  );
-};
-
-const NewMessageReduxForm = reduxForm({form: 'newMessage'})(NewMessageForm);
 
 const Dialogs = (props) => {
   const dialogElements = props.dialogs.map(d => (
@@ -42,10 +33,22 @@ const Dialogs = (props) => {
       <div className={s.messages}>
         {messageElements}
 
-        <NewMessageReduxForm onSubmit={onSubmit}/>
+        <NewMessageForm onSubmit={onSubmit}/>
 
       </div>
     </div>
   );
 };
-export default Dialogs;
+
+
+const mapStateToProps = (state) => {
+  return {
+    dialogs: getDialogs(state),
+    messages: getMessages(state),
+  };
+};
+export default compose(
+  withAuthRedirect,
+  connect(mapStateToProps, {sendMessage}),
+)(Dialogs);
+

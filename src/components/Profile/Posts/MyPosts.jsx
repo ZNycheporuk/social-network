@@ -1,22 +1,8 @@
 import React from 'react';
-import {Field, reduxForm} from 'redux-form';
 import s from './MyPosts.module.css';
+import NewPostForm from './NewPostForm';
 import Post from './Post/Post';
 
-
-const NewPostForm = (props) => {
-  return (
-    <form className={s.newPost} onSubmit={props.handleSubmit}>
-      <div>
-        <Field component={'textarea'} name={'post'} placeholder='Enter your new post:'/>
-      </div>
-      <div>
-        <button>New Post</button>
-      </div>
-    </form>
-  );
-};
-const NewPostReduxForm = reduxForm({form: 'newPost'})(NewPostForm);
 
 const MyPosts = React.memo(props => {
   const postElements = props.posts
@@ -30,7 +16,7 @@ const MyPosts = React.memo(props => {
   return (
     <div className={s.posts}>
       My posts
-      <NewPostReduxForm onSubmit={onAddPost}/>
+      <NewPostForm onSubmit={onAddPost}/>
       {postElements}
     </div>
   );

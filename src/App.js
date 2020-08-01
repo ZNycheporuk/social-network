@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {Route} from 'react-router-dom';
 import './App.css';
 import Preloader from './components/Common/Preloader/Preloader';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
-import HeaderContainer from './components/Header/HeaderContainer';
+import Dialogs from './components/Dialogs/Dialogs';
+import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
-import ProfileContainer from './components/Profile/ProfileContainer';
-import UsersContainer from './components/Users/UsersContainer';
+import Profile from './components/Profile/Profile';
+import Users from './components/Users/Users';
 import withSuspense from './hoc/withSuspense';
 import {initialize} from './redux/app-reducer';
 import {getLoggedIn} from './redux/app-selectors';
@@ -26,14 +26,14 @@ class App extends React.Component {
     if (!this.props.loggedIn) return <Preloader/>;
     return (
       <div className='app-wrapper'>
-        <HeaderContainer/>
+        <Header/>
         <div className='app-wrapper-navbar'>
           <Navbar/>
         </div>
         <div className='app-wrapper-content'>
-          <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-          <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-          <Route path='/users' render={() => <UsersContainer/>}/>
+          <Route path='/profile/:userId?' render={() => <Profile/>}/>
+          <Route path='/dialogs' render={() => <Dialogs/>}/>
+          <Route path='/users' render={() => <Users/>}/>
           <Route path='/news' render={withSuspense(News)}/>
           <Route path='/music' render={withSuspense(Music)}/>
           <Route path='/settings' render={withSuspense(Settings)}/>

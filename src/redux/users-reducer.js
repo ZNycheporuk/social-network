@@ -12,12 +12,11 @@ const setUsers = (users) => ({type: SET_USERS, users});
 const setFollow = (id) => ({type: FOLLOW, id});
 const setUnfollow = (id) => ({type: UNFOLLOW, id});
 const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
-const setPage = (page) => ({type: SET_PAGE, page});
+export const setPage = (page) => ({type: SET_PAGE, page});
 const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
 const followingInProgress = (isFetching, id) => ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, id});
 
 export const requestUsers = (page, pageSize) => async (dispatch) => {
-  dispatch(setPage(page));
   dispatch(setIsFetching(true));
   const data = await usersAPI.getUsers(page, pageSize);
   dispatch(setIsFetching(false));

@@ -1,5 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
+import {logout} from '../../redux/auth-reducer';
+import {getIsAuth, getLogin} from '../../redux/auth-selectors';
 import s from './Header.module.css';
 
 const Header = (props) => {
@@ -13,4 +16,11 @@ const Header = (props) => {
     </header>
   );
 };
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    login: getLogin(state),
+    isAuth: getIsAuth(state),
+  };
+};
+
+export default connect(mapStateToProps, {logout})(Header);
