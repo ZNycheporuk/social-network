@@ -26,15 +26,15 @@ export const requestUsers = (page, pageSize) => async (dispatch) => {
 
 export const unfollow = (id) => async (dispatch) => {
   dispatch(followingInProgress(true, id));
-  const resultCode = await followAPI.unfollow(id);
-  if (resultCode === 0) dispatch(setUnfollow(id));
+  const response = await followAPI.unfollow(id);
+  if (response.resultCode === 0) dispatch(setUnfollow(id));
   dispatch(followingInProgress(false, id));
 
 };
 export const follow = (id) => async (dispatch) => {
   dispatch(followingInProgress(true, id));
-  const resultCode = await followAPI.follow(id);
-  if (resultCode === 0) dispatch(setFollow(id));
+  const response = await followAPI.follow(id);
+  if (response.resultCode === 0) dispatch(setFollow(id));
   dispatch(followingInProgress(false, id));
 };
 

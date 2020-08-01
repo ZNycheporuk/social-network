@@ -5,7 +5,7 @@ import {Field, reduxForm} from 'redux-form';
 import {login} from '../../redux/auth-reducer';
 import {getIsAuth} from '../../redux/auth-selectors';
 import {required} from '../../utils/validate';
-import {renderField} from '../Common/FormsControls/FormsControls';
+import {renderField} from '../Common/FormsControls/FormControls';
 import s from '../Common/FormsControls/FormsControls.module.css';
 
 const LoginForm = (props) => {

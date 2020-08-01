@@ -4,9 +4,11 @@ const ADD_POST = 'ADD_POST';
 const DELETE_POST = 'DELETE_POST';
 const SET_PROFILE = 'SET_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const SET_PHOTOS = 'SET_PHOTOS';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 const setProfile = (profile) => ({type: SET_PROFILE, profile});
+const setPhotos = (photos) => ({type: SET_PHOTOS, photos});
 const setStatusValue = (status) => ({type: SET_STATUS, status});
 const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching});
 
@@ -24,9 +26,14 @@ export const requestStatus = (id) => async (dispatch) => {
   const response = await profileAPI.getStatus(id);
   dispatch(setStatusValue(response));
 };
+export const savePhoto = (photo) => async (dispatch) => {
+  const response = await profileAPI.savePhoto(photo);
+  if (response.resultCode === 0)
+    dispatch(setPhotos(response.data.photos));
+};
 export const setStatus = (status) => async (dispatch) => {
-  const resultCode = await profileAPI.setStatus(status);
-  if (resultCode === 0) dispatch(setStatusValue(status));
+  const response = await profileAPI.setStatus(status);
+  if (response.resultCode === 0) dispatch(setStatusValue(status));
 };
 
 const initialState = {
@@ -77,8 +84,12 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         profile: action.profile,
       };
+    case SET_PHOTOS:
+      return {
+        ...state,
+        profile: {...state.profile, photos: action.photos},
+      };
     case SET_STATUS:
-      console.log('in set status');
       return {
         ...state,
         status: action.status,

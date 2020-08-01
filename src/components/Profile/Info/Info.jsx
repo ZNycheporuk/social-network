@@ -4,6 +4,10 @@ import Status from '../Status/Status';
 import s from './Info.module.css';
 
 const ProfileInfo = (props) => {
+  const onMainPhotoSelected = event => {
+    if (event.target.files.length)
+      props.savePhoto(event.target.files[0]);
+  };
 
   return (
 
@@ -11,6 +15,9 @@ const ProfileInfo = (props) => {
       <div>
         <img className={s.ava} src={props.profile.photos.large != null ? props.profile.photos.large : userPhoto}
              alt='ava'/>
+        <div>
+          {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
+        </div>
         <div>
 
           <div className={s.about}>Fullname: {`${props.profile.fullName}`}</div>

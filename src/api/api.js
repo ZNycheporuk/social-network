@@ -16,11 +16,11 @@ export const usersAPI = {
 export const followAPI = {
   async follow(id) {
     const response = await ajax.post(`follow/${id}`);
-    return response.data.resultCode;
+    return response.data;
   },
   async unfollow(id) {
     const response = await ajax.delete(`follow/${id}`);
-    return response.data.resultCode;
+    return response.data;
   },
 };
 export const authAPI = {
@@ -50,6 +50,16 @@ export const profileAPI = {
     const response = await ajax.put(`profile/status`, {
       status,
     });
-    return response.data.resultCode;
+    return response.data;
+  },
+  async savePhoto(image) {
+    const formData = new FormData();
+    formData.append('image', image);
+    const response = await ajax.put(`profile/photo`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
   },
 };
