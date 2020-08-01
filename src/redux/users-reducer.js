@@ -16,14 +16,15 @@ const setPage = (page) => ({type: SET_PAGE, page});
 const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
 const followingInProgress = (isFetching, id) => ({type: TOGGLE_IS_FOLLOWING_IN_PROGRESS, isFetching, id});
 
-export const getUsers = (page, pageSize, pagesCount) => async (dispatch) => {
+export const requestUsers = (page, pageSize) => async (dispatch) => {
   dispatch(setPage(page));
   dispatch(setIsFetching(true));
-  const data = await usersAPI.getUsers(page, pageSize, pagesCount);
+  const data = await usersAPI.getUsers(page, pageSize);
   dispatch(setIsFetching(false));
   dispatch(setUsers(data.items));
   dispatch(setTotalUsersCount(data.totalCount));
 };
+
 export const unfollow = (id) => async (dispatch) => {
   dispatch(followingInProgress(true, id));
   const resultCode = await followAPI.unfollow(id);
@@ -38,7 +39,7 @@ export const follow = (id) => async (dispatch) => {
   dispatch(followingInProgress(false, id));
 };
 
-let initialState = {
+const initialState = {
   users: [],
   pageSize: 10,
   totalUsersCount: 0,
@@ -49,42 +50,49 @@ let initialState = {
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FOLLOW: {
+    case FOLLOW:
       return {
-        ...state, users: state.users.map(user => {
+        ...state,
+        users: state.users.map(user => {
           if (user.id === action.id) return {...user, followed: true};
           return user;
         }),
       };
-    }
-    case UNFOLLOW: {
+    case UNFOLLOW:
       return {
-        ...state, users: state.users.map(user => {
+        ...state,
+        users: state.users.map(user => {
           if (user.id === action.id) return {...user, followed: false};
           return user;
         }),
       };
-    }
-    case SET_USERS: {
-      return {...state, users: action.users};
-      // return {...state, users: [...state.users, ...action.users]};
-    }
-    case SET_PAGE: {
-      return {...state, page: action.page};
-    }
-    case SET_TOTAL_USERS_COUNT: {
-      return {...state, totalUsersCount: action.totalUsersCount};
-    }
-    case TOGGLE_IS_FETCHING: {
-      return {...state, isFetching: action.isFetching};
-    }
-    case TOGGLE_IS_FOLLOWING_IN_PROGRESS: {
+    case SET_USERS:
       return {
-        ...state, isFollowingInProgress: action.isFetching
+        ...state,
+        users: action.users,
+      };
+    case SET_PAGE:
+      return {
+        ...state,
+        page: action.page,
+      };
+    case SET_TOTAL_USERS_COUNT:
+      return {
+        ...state,
+        totalUsersCount: action.totalUsersCount,
+      };
+    case TOGGLE_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      };
+    case TOGGLE_IS_FOLLOWING_IN_PROGRESS:
+      return {
+        ...state,
+        isFollowingInProgress: action.isFetching
           ? [...state.isFollowingInProgress, action.id]
           : state.isFollowingInProgress.filter(id => id !== action.id),
       };
-    }
     default:
       return state;
   }

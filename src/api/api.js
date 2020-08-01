@@ -8,8 +8,8 @@ const ajax = axios.create({
   },
 });
 export const usersAPI = {
-  async getUsers(page = 1, pageSize = 10, pagesCount = 551) {
-    const response = await ajax.get(`users?page=${pagesCount - page + 1}&count=${pageSize}`);
+  async getUsers(page = 1, pageSize = 10) {
+    const response = await ajax.get(`users?page=${page}&count=${pageSize}`);
     return response.data;
   },
 };

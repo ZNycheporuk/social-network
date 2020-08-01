@@ -16,3 +16,8 @@
 .formControl span {
     margin-left: 10px;
 }
+
+.formSomeError {
+    color: red;
+    margin-bottom: 10px;
+}

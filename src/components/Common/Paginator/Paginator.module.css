@@ -1,0 +1,16 @@
+.paginator {
+    margin: 5px;
+}
+
+.selectedPage {
+    font-weight: bold;
+}
+
+span {
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+.page {
+    cursor: pointer;
+}

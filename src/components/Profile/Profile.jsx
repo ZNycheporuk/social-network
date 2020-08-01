@@ -6,7 +6,7 @@ import s from './Profile.module.css';
 
 
 const Profile = (props) => {
-  if (!props.profile) {
+  if (props.isFetching || !props.profile) {
     return <Preloader/>;
   }
   return (
