@@ -47,9 +47,11 @@ export const profileAPI = {
     return response.data;
   },
   async setStatus(status) {
-    const response = await ajax.put(`profile/status`, {
-      status,
-    });
+    const response = await ajax.put(`profile/status`, status);
+    return response.data;
+  },
+  async setProfile(profile) {
+    const response = await ajax.put(`profile`, profile);
     return response.data;
   },
   async savePhoto(image) {

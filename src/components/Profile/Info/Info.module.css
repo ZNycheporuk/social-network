@@ -1,12 +1,9 @@
-.panorama img {
-    width: 100%;
-}
 
-.contact {
+.contacts > div {
     margin: 10px;
 }
 
-.about {
+.about > div {
     margin: 10px;
 }
 

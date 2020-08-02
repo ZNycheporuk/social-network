@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Route} from 'react-router-dom';
 import './App.css';
@@ -17,32 +17,28 @@ const Music = React.lazy(() => import('./components/Music/Music'));
 const Login = React.lazy(() => import('./components/Login/Login'));
 const Settings = React.lazy(() => import('./components/Settings/Settings'));
 
-class App extends React.Component {
-  componentDidMount() {
-    this.props.initialize();
-  }
+const App = ({initialize, ...props}) => {
+  useEffect(initialize, [initialize]);
 
-  render() {
-    if (!this.props.loggedIn) return <Preloader/>;
-    return (
-      <div className='app-wrapper'>
-        <Header/>
-        <div className='app-wrapper-navbar'>
-          <Navbar/>
-        </div>
-        <div className='app-wrapper-content'>
-          <Route path='/profile/:userId?' render={() => <Profile/>}/>
-          <Route path='/dialogs' render={() => <Dialogs/>}/>
-          <Route path='/users' render={() => <Users/>}/>
-          <Route path='/news' render={withSuspense(News)}/>
-          <Route path='/music' render={withSuspense(Music)}/>
-          <Route path='/settings' render={withSuspense(Settings)}/>
-          <Route path='/login' render={withSuspense(Login)}/>
-        </div>
+  if (!props.loggedIn) return <Preloader/>;
+  return (
+    <div className='app-wrapper'>
+      <Header/>
+      <div className='app-wrapper-navbar'>
+        <Navbar/>
       </div>
-    );
-  }
-}
+      <div className='app-wrapper-content'>
+        <Route path='/profile/:userId?' render={() => <Profile/>}/>
+        <Route path='/dialogs' render={() => <Dialogs/>}/>
+        <Route path='/users' render={() => <Users/>}/>
+        <Route path='/news' render={withSuspense(News)}/>
+        <Route path='/music' render={withSuspense(Music)}/>
+        <Route path='/settings' render={withSuspense(Settings)}/>
+        <Route path='/login' render={withSuspense(Login)}/>
+      </div>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) => ({
   loggedIn: getLoggedIn(state),

@@ -1,51 +1,22 @@
 import React from 'react';
-import userPhoto from '../../../assets/Images/user8.jpg';
 import Status from '../Status/Status';
+import Contact from './Contact';
 import s from './Info.module.css';
 
-const ProfileInfo = (props) => {
-  const onMainPhotoSelected = event => {
-    if (event.target.files.length)
-      props.savePhoto(event.target.files[0]);
-  };
-
+const ProfileInfo = ({profile, ...props}) => {
   return (
-
-    <div>
-      <div>
-        <img className={s.ava} src={props.profile.photos.large != null ? props.profile.photos.large : userPhoto}
-             alt='ava'/>
-        <div>
-          {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
-        </div>
-        <div>
-
-          <div className={s.about}>Fullname: {`${props.profile.fullName}`}</div>
-
-          <div className={s.about}>About me: {`${props.profile.aboutMe}`}</div>
-          <div className={s.about}>Contacts:
-            {props.profile.contacts.facebook ?
-              <div className={s.contact}>Facebook: {props.profile.contacts.facebook}</div> : null}
-            {props.profile.contacts.website ?
-              <div className={s.contact}>Website: {props.profile.contacts.website}</div> : null}
-            {props.profile.contacts.vk ? <div className={s.contact}>VK: {props.profile.contacts.vk}</div> : null}
-            {props.profile.contacts.twitter ?
-              <div className={s.contact}>Twitter: {props.profile.contacts.twitter}</div> : null}
-            {props.profile.contacts.instagram ?
-              <div className={s.contact}>Instagram: {props.profile.contacts.instagram}</div> : null}
-            {props.profile.contacts.youtube ?
-              <div className={s.contact}>Youtube: {props.profile.contacts.youtube}</div> : null}
-            {props.profile.contacts.github ?
-              <div className={s.contact}>Github: {props.profile.contacts.github}</div> : null}
-            {props.profile.contacts.mainLink ?
-              <div className={s.contact}>Main link: {props.profile.contacts.mainLink}</div> : null}
-          </div>
-          <div className={s.about}>Looking for a job: {props.profile.lookingForAJob ? 'yes' &&
-            <div className={s.about}>Description: {`${props.profile.lookingForAJobDescription}`}</div> : 'no'}
-          </div>
-          <Status status={props.status} setStatus={props.setStatus}/>
-        </div>
+    <div className={s.about}>
+      <Contact title='Fullname' value={profile.fullName}/>
+      <Contact title='About me' value={profile.aboutMe}/>
+      <Contact title='Looking for a job' value={profile.lookingForAJob ? 'yes' : 'no'}/>
+      <Contact title='My skills:' value={profile.lookingForAJobDescription}/>
+      <Contact title='Contacts' value=' '/>
+      <div className={s.contacts}>
+        {Object.keys(profile.contacts).map(key => <Contact key={key} title={key} value={profile.contacts[key]}/>)}
       </div>
+      <Status status={props.status} setStatus={props.setStatus}/>
+      {props.isOwner && <button onClick={() => props.setEditMode(true)}>Edit</button>}
+
     </div>
   );
 };

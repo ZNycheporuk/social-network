@@ -31,9 +31,15 @@ export const savePhoto = (photo) => async (dispatch) => {
   if (response.resultCode === 0)
     dispatch(setPhotos(response.data.photos));
 };
+export const saveProfile = (profile) => async (dispatch, getState) => {
+  const response = await profileAPI.setProfile(profile);
+  if (response.resultCode === 0)
+    dispatch(requestProfile(getState().auth.id));
+};
 export const setStatus = (status) => async (dispatch) => {
   const response = await profileAPI.setStatus(status);
-  if (response.resultCode === 0) dispatch(setStatusValue(status));
+  if (response.resultCode === 0)
+    dispatch(setStatusValue(status));
 };
 
 const initialState = {
